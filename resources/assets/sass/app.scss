@@ -1,9 +1,12 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Lato);
+$font-family-sans-serif: 'Lato', sans-serif;
 
 // Variables
 @import "variables";
+$body-bg: #FFF;
+$text-color: #333;
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
