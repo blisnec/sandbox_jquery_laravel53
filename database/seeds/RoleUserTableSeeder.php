@@ -25,7 +25,7 @@ class RoleUserTableSeeder extends Seeder
         $users = [];
         $data = User::all();
         foreach ($data as $user) {
-            $users[$user->name] = $user->id;
+            $users[$user->username] = $user->id;
         }
 
         foreach ($roleUser as $user => $role) {

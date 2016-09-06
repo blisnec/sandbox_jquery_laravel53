@@ -14,20 +14,32 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                {{ $user->name }}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
                 <strong>Username:</strong>
                 {{ $user->username }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>FIO:</strong>
+                {{ $user->fio }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Branch:</strong>
+                {{ $branches[$user->branch]->SNAME }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Email:</strong>
                 {{ $user->email }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Phone:</strong>
+                {{ $user->phone }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

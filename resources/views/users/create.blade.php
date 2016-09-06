@@ -25,20 +25,32 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name', 'class' => 'form-control')) !!}
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
                 <strong>Username:</strong>
                 {!! Form::text('username', null, array('placeholder' => 'Username', 'class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>FIO:</strong>
+                {!! Form::text('fio', null, array('placeholder' => 'FIO', 'class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Branch:</strong>
+                {!! Form::select('branch', $branches, [], array('class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Email:</strong>
                 {!! Form::text('email', null, array('placeholder' => 'Email', 'class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Phone:</strong>
+                {!! Form::text('phone', null, array('placeholder' => 'Phone', 'class' => 'form-control')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

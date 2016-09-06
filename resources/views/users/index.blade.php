@@ -23,16 +23,19 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
+            <th>Username</th>
             <th>Email</th>
-            <th>Roles</th>
+            <th>Branch</th>
+            <th>Role</th>
+            <th>Status</th>
             <th width="280px">Action</th>
         </tr>
         @foreach($data as $key => $user)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $user->name }}</td>
+            <td>{{ $user->username }}</td>
             <td>{{ $user->email }}</td>
+            <td>{{ $branches[$user->branch]->SNAME}}</td>
             <td>
                 @if(!empty($user->roles))
                     @foreach($user->roles as $v)
@@ -40,6 +43,7 @@
                     @endforeach
                 @endif
             </td>
+            <td>{{ $user->status }}</td>
             <td>
                 <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
                 <?php if (\Entrust::can('user-edit')) : ?>

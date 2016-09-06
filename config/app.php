@@ -169,6 +169,7 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        'App\Extensions\Firebird\FirebirdServiceProvider',
 
         /*
          * Application Service Providers...

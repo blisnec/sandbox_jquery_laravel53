@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Connectors\Connector;
+use Illuminate\Database\Connection;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
@@ -12,6 +14,36 @@ use Hash;
 class UserController extends Controller
 {
     /**
+     * DB connection to firebird database
+     * 
+     * @var Illuminate\Database\Connection
+     */
+    protected $db;
+
+    /**
+     * A list of existing branches
+     * 
+     * @var Illuminate\Database\Connection
+     */
+    public $branches;
+
+    /**
+     * Create a new database connection instance.
+     * 
+     * @return void
+     */
+    public function __construct() {
+        $connector = new Connector();
+        $pdo = $connector->createConnection('firebird:host=127.0.0.1;dbname=/var/lib/firebird/2.5/data/GLOBAL_promo.fdb', ['username' => 'sysdba', 'password' => 'root'], []);
+        $this->db = new Connection($pdo, '/var/lib/firebird/2.5/data/GLOBAL_promo.fdb', '', ['charset' => 'W1251']);
+
+        $this->branches = $this->db->table('FILIALS')
+                                   ->select('ID', 'SNAME')
+                                   ->get()
+                                   ->all();
+    }
+
+    /**
      * Display a listing of the resource.
      * 
      * @return \Illuminate\Http\Response
@@ -19,7 +51,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $data = User::orderBy('id', 'DESC')->paginate(5);
-        return view('users.index', compact('data'))
+        return view('users.index', ['data' => $data, 'branches' => $this->branches])
                 ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -31,7 +63,11 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('display_name', 'id');
-        return view('users.create', compact('roles'));
+        $branches = [];
+        foreach ($this->branches as $branch) {
+            $branches[$branch->ID] = $branch->SNAME;
+        }
+        return view('users.create', compact('roles', 'branches'));
     }
 
     /**
@@ -70,7 +106,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show', compact('user'));
+        return view('users.show', ['user' => $user, 'branches' => $this->branches]);
     }
 
     /**
@@ -85,7 +121,7 @@ class UserController extends Controller
         $roles = Role::pluck('display_name', 'id');
         $userRole = $user->roles->pluck('id', 'id')->toArray();
 
-        return view('users.edit', compact('user', 'roles', 'userRole'));
+        return view('users.edit', ['user' => $user, 'roles' => $roles, 'userRole' => $userRole, 'branches' => $this->branches]);
     }
 
     /**
